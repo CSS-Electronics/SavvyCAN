@@ -1,3 +1,4 @@
+#include <QApplication>
 #include <QSettings>
 #include <QThread>
 #include "canconnection.h"
@@ -114,12 +115,19 @@ void CANConnection::stop()
             if(!mThread_p->wait()) {
                 qDebug() << "can't stop thread";
             }
+            mStarted = false;
         }
         return;
     }
 
     /* 2) call piStop in mThread context */
-    return piStop();
+    piStop();
+
+    if( mThread_p && mStarted && (mThread_p == QThread::currentThread()) )
+    {
+        /* Move back to the main thread */
+        moveToThread(QApplication::instance()->thread());
+    }
 }
 
 
