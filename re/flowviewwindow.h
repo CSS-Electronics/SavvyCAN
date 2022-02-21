@@ -36,7 +36,7 @@ private slots:
     void contextMenuRequestGraph(QPoint pos);
     void saveFileFlow();
     void saveFileGraph();
-    void plottableDoubleClick(QCPAbstractPlottable* plottable, QMouseEvent* event);
+    void plottableDoubleClick(QCPAbstractPlottable* plottable, int dataIdx, QMouseEvent* event);
     void gotCenterTimeID(uint32_t ID, double timestamp);
     void updateTriggerValues();
     void gotCellClick(int x, int y);

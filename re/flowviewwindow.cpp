@@ -95,7 +95,7 @@ FlowViewWindow::FlowViewWindow(const QVector<CANFrame> *frames, QWidget *parent)
     connect(ui->spinPlayback, SIGNAL(valueChanged(int)), this, SLOT(changePlaybackSpeed(int)));
     connect(ui->cbLoopPlayback, SIGNAL(clicked(bool)), this, SLOT(changeLooping(bool)));
     connect(playbackTimer, SIGNAL(timeout()), this, SLOT(timerTriggered()));
-    connect(ui->graphView, SIGNAL(plottableDoubleClick(QCPAbstractPlottable*,QMouseEvent*)), this, SLOT(plottableDoubleClick(QCPAbstractPlottable*,QMouseEvent*)));
+    connect(ui->graphView, SIGNAL(plottableDoubleClick(QCPAbstractPlottable*,int,QMouseEvent*)), this, SLOT(plottableDoubleClick(QCPAbstractPlottable*,int,QMouseEvent*)));
     connect(ui->txtTrigger0, SIGNAL(textEdited(QString)), this, SLOT(updateTriggerValues()));
     connect(ui->txtTrigger1, SIGNAL(textEdited(QString)), this, SLOT(updateTriggerValues()));
     connect(ui->txtTrigger2, SIGNAL(textEdited(QString)), this, SLOT(updateTriggerValues()));
@@ -288,8 +288,10 @@ void FlowViewWindow::updateTriggerValues()
     triggerValues[7] = Utility::ParseStringToNum(ui->txtTrigger7->text());
 }
 
-void FlowViewWindow::plottableDoubleClick(QCPAbstractPlottable* plottable, QMouseEvent* event)
+void FlowViewWindow::plottableDoubleClick(QCPAbstractPlottable* plottable, int dataIdx, QMouseEvent* event)
 {
+    (void)dataIdx;
+
     int id = 0;
     //apply transforms to get the X axis value where we double clicked
     double coord = plottable->keyAxis()->pixelToCoord(event->localPos().x());
