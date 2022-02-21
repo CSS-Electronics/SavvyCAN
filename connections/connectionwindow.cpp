@@ -415,8 +415,12 @@ void ConnectionWindow::currentRowChanged(const QModelIndex &current, const QMode
 
     int selIdx = current.row();
 
-    disconnect(connModel->getAtIdx(previous.row()), SIGNAL(debugOutput(QString)), 0, 0);
-    disconnect(this, SIGNAL(sendDebugData(QByteArray)), connModel->getAtIdx(previous.row()), SLOT(debugInput(QByteArray)));
+    auto const previousIndex = connModel->getAtIdx(previous.row());
+    if( previousIndex != nullptr )
+    {
+        disconnect(connModel->getAtIdx(previous.row()), SIGNAL(debugOutput(QString)), 0, 0);
+        disconnect(this, SIGNAL(sendDebugData(QByteArray)), connModel->getAtIdx(previous.row()), SLOT(debugInput(QByteArray)));
+    }
 
     /* set parameters */
     if (selIdx == -1) {
