@@ -123,26 +123,6 @@ void GraphingWindow::closeEvent(QCloseEvent *event)
     writeSettings();
 }
 
-void GraphingWindow::changeEvent(QEvent *event)
-{
-    QWidget::changeEvent(event);
-    if (event->type() == QEvent::ActivationChange)
-    {
-        if(this->isActiveWindow())
-        {
-            setWindowOpacity(1);
-            ui->graphingView->repaint();
-            qDebug() << "Show";
-        }
-        else
-        {
-            setWindowOpacity(0.25);
-            // widget is now inactive
-            qDebug() << "Hide";
-        }
-    }
-}
-
 void GraphingWindow::readSettings()
 {
     QSettings settings;

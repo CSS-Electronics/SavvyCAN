@@ -109,7 +109,6 @@ private:
     void readSettings();
     void writeSettings();
     bool eventFilter(QObject *obj, QEvent *event);
-    void changeEvent(QEvent *event);
 };
 
 #endif // GRAPHINGWINDOW_H
